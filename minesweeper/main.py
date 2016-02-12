@@ -16,12 +16,17 @@ class Grid:
             row = []
             for j in xrange(self.m):
                 c = Cell(self.valid_values[random.randint(0, 3)], 'closed', 'x')
-                row.append(c.value)
+                row.append(c)
             f.append(row)
         return f
 
     def show(self):
-        return self.field
+        psudo_field = []
+        for i in xrange(len(self.field)):
+            psudo_field.append([])
+            for j in xrange(len(self.field[i])):
+                psudo_field[i].append(self.field[i][j].view)
+        return psudo_field
 
     def open_cell(self, f1, f2):
         value = None
