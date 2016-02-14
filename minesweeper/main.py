@@ -28,11 +28,14 @@ class Grid:
                 psudo_field[i].append(self.field[i][j].view)
         return psudo_field
 
-    def open_cell(self, f1, f2):
+    def open_cell(self, f1, f2, flag=None):
         value = None
         if self.field[f1][f2].status == 'closed':
-            self.field[f1][f2].status = 'open'
-            self.field[f1][f2].view = 'O'
+            if not flag:
+                self.field[f1][f2].view = 'O'
+                self.field[f1][f2].status = 'open'
+            else:
+                self.field[f1][f2].view = 'f'
             value = self.field[f1][f2].value
         return value
 
@@ -48,9 +51,20 @@ class Cell:
 
 
 def main():
-    cells = []
-    grid = Grid(3, 3)
-    print grid.show()
-    # print grid.open_cell(2,2)
+    grid = Grid(2, 2)
+    death = False
+    while not death:
+        print grid.show()
+        options = raw_input('Enter option: ')
+        # (1,2)f/(1,2)
+        op1, op2 = int(options[1]), int(options[3])
+        try:
+            flag = options[5]
+        except IndexError:
+            flag = None
+        v_value = grid.open_cell(op1, op2, flag=flag)
+        if v_value == 'm':
+            print 'Oops, you stepped on a mine! Game over'
+            break
 
 main()
