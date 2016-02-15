@@ -41,9 +41,6 @@ class Grid:
                 self.field[f1][f2].view = 'f'
         return value
 
-    def check(self):
-        return self.counter
-
 
 class Cell:
     def __init__(self, value, status, view):
@@ -59,12 +56,10 @@ def main():
     ip = raw_input('Enter the size of the grid like 2*2: ')
     rows, columns = int(ip[0]), int(ip[2])
     grid = Grid(rows, columns)
-    death = False
     c = 0
-    while not death:
+    while True:
         print grid.show()
-        options = raw_input('Enter option: ')
-        # (1,2)f/(1,2)
+        options = raw_input('Enter option like (1,2)f/(1,2): ')
         op1, op2 = int(options[1]), int(options[3])
         try:
             flag = options[5]
@@ -75,7 +70,7 @@ def main():
             print 'Oops, you stepped on a mine! Game over'
             break
         c += 1
-        if c == grid.check():
+        if c == grid.counter:
             print 'You cleared the minefield. Game over!'
             break
 
